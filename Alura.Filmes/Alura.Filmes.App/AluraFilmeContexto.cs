@@ -1,4 +1,6 @@
 ﻿
+using Alura.Filmes.App.Dados;
+using Alura.Filmes.App.Negocio;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -8,6 +10,7 @@ namespace Alura.Filmes.App
     {
 
         public DbSet<Ator> Atores { get; set; }
+        public DbSet<Filme> Filmes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = @"Data Source=PROJETO\SQL2014;Initial Catalog=AluraFilme;User ID=sa;
@@ -21,31 +24,12 @@ namespace Alura.Filmes.App
         // mapeamento entre o "mundo dos objetos" e o "mundo relacional".
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Ator>()
-               .ToTable("actor");
 
-            modelBuilder.Entity<Ator>()
-              .Property(a => a.Id)
-               .HasColumnName("actor_id");
+            // Importar as configurações da classe ator.
+            modelBuilder.ApplyConfiguration(new AtorConfiguration());
 
-            modelBuilder.Entity<Ator>()
-                .Property(a => a.PrimeiroNome)
-                .HasColumnName("first_name")
-                .HasColumnType("varchar(45)")
-                .IsRequired();
-
-            modelBuilder.Entity<Ator>()
-                .Property(a => a.SegundoNome)
-                .HasColumnName("last_name")
-                .HasColumnType("varchar(45)")
-                .IsRequired();
-
-            // A coluna que não existe na classe e existe no banco de dados são chamadas de
-            // shadow properties e para configura-las segue os comandos abaixos.
-            modelBuilder.Entity<Ator>()
-                .Property<DateTime>("last_update") // Nome da Coluna.
-                .HasColumnType("datetime")// Tipo do campo.
-                .HasDefaultValueSql("getdate()"); // Executa um Sql padrão
+            // Importar as configurações da classe filme.
+            modelBuilder.ApplyConfiguration(new FilmeConfiguration());
 
         }
     }

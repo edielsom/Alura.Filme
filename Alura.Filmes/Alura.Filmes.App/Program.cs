@@ -10,6 +10,24 @@ namespace Alura.Filmes.App
         static void Main(string[] args)
         {
             // LerPropriedadeShadowProperty();
+            //ListarDezAtoresModificados();
+
+            using (var conteto = new AluraFilmeContexto())
+            {
+                conteto.LogSQLToConsole();
+
+                var filmes = conteto.Filmes;
+
+                foreach (var filme in filmes)
+                {
+                    Console.WriteLine(filme);
+                }
+                Console.ReadLine();
+            }
+        }
+
+        private static void ListarDezAtoresModificados()
+        {
             using (var contexto = new AluraFilmeContexto())
             {
                 contexto.LogSQLToConsole();
@@ -23,7 +41,7 @@ namespace Alura.Filmes.App
                 {
                     Console.WriteLine(ator + " - " +
                             contexto.Entry(ator).Property("last_update").CurrentValue);
-                    
+
                 }
 
                 Console.ReadLine();
