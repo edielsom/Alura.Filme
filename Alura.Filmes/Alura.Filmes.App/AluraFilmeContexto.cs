@@ -6,11 +6,12 @@ using System;
 
 namespace Alura.Filmes.App
 {
-    public class AluraFilmeContexto: DbContext
+    public class AluraFilmeContexto : DbContext
     {
 
         public DbSet<Ator> Atores { get; set; }
         public DbSet<Filme> Filmes { get; set; }
+        public DbSet<FilmeAtor> Elenco { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = @"Data Source=PROJETO\SQL2014;Initial Catalog=AluraFilme;User ID=sa;
@@ -30,6 +31,9 @@ namespace Alura.Filmes.App
 
             // Importar as configurações da classe filme.
             modelBuilder.ApplyConfiguration(new FilmeConfiguration());
+
+            // Importar as configurações da classe filme.
+            modelBuilder.ApplyConfiguration(new FilmeAtorConfiguration());
 
         }
     }

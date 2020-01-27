@@ -11,12 +11,56 @@ namespace Alura.Filmes.App
         {
             // LerPropriedadeShadowProperty();
             //ListarDezAtoresModificados();
+            //LendoFilmeCadastrado();
+            //ImprimidoDadosTabelasRelacionamento();
 
-            using (var conteto = new AluraFilmeContexto())
+            using (var contexto = new AluraFilmeContexto())
             {
-                conteto.LogSQLToConsole();
+                contexto.LogSQLToConsole();
 
-                var filmes = conteto.Filmes;
+                var filme = contexto.Filmes
+                    .Include(f => f.Atores)  // Faz um join com a tabela Atores
+                    .ThenInclude(fa => fa.Ator) // Faz um join em nível mais baixo com a tabela filme
+                    .First();
+
+                Console.WriteLine(filme);
+                Console.WriteLine("Elenco");
+
+                foreach (var ator in filme.Atores)
+                {
+                    Console.WriteLine(ator.Ator);
+                }
+            }
+        }
+
+        private static void ImprimidoDadosTabelasRelacionamento()
+        {
+            using (var contexto = new AluraFilmeContexto())
+            {
+                contexto.LogSQLToConsole();
+
+
+
+                foreach (var item in contexto.Elenco)
+                {
+                    var entidade = contexto.Entry(item);
+                    var filmId = entidade.Property("film_id").CurrentValue; // Mapea uma ShadowProperty
+                    var actorId = entidade.Property("actor_id").CurrentValue;// Mapea uma ShadowProperty
+                    var lastUpd = entidade.Property("last_update").CurrentValue;// Mapea uma ShadowProperty
+
+                    Console.WriteLine($"Filme {filmId}, Ator {actorId}, LastUpdate: {lastUpd}");
+                }
+                Console.ReadLine();
+            }
+        }
+
+        private static void LendoFilmeCadastrado()
+        {
+            using (var contexto = new AluraFilmeContexto())
+            {
+                contexto.LogSQLToConsole();
+
+                var filmes = contexto.Filmes;
 
                 foreach (var filme in filmes)
                 {

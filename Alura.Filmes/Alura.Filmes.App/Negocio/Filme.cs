@@ -13,7 +13,12 @@ namespace Alura.Filmes.App.Negocio
         public string Descricao { get; set; }
         public string AnoLancamento { get; set; }
         public Int16 Duracao { get; set; }
+        public IList<FilmeAtor> Atores { get; set; }
 
+        public Filme()
+        {
+            Atores = new List<FilmeAtor>();
+        }
         public override string ToString()
         {
             return $@"Id ({Id}) - Título {Titulo} - Ano de Lançamento - {AnoLancamento}";
