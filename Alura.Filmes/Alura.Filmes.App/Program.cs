@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using Alura.Filmes.App.Negocio;
 
 namespace Alura.Filmes.App
 {
@@ -13,7 +14,49 @@ namespace Alura.Filmes.App
             //ListarDezAtoresModificados();
             //LendoFilmeCadastrado();
             //ImprimidoDadosTabelasRelacionamento();
+            //RelacionamentoMuitosParaMuitos();
 
+            // IdiomasFalados();
+
+            using (var contexto = new AluraFilmeContexto())
+            {
+                contexto.LogSQLToConsole();
+
+                var idiomas = contexto.Idiomas
+                    .Include(i => i.FilmesFalados);
+
+                foreach (var idioma in idiomas)
+                {
+                    Console.WriteLine(idioma);
+
+                    foreach (var filme in idioma.FilmesFalados)
+                    {
+                        Console.WriteLine(filme);
+                    }
+                    Console.WriteLine("\n");
+                }
+                Console.ReadLine();
+            }
+        }
+
+        private static void IdiomasFalados()
+        {
+            using (var contexto = new AluraFilmeContexto())
+            {
+                contexto.LogSQLToConsole();
+
+
+                foreach (var idioma in contexto.Idiomas)
+                {
+                    Console.WriteLine(idioma);
+                }
+
+                Console.ReadLine();
+            }
+        }
+
+        private static void RelacionamentoMuitosParaMuitos()
+        {
             using (var contexto = new AluraFilmeContexto())
             {
                 contexto.LogSQLToConsole();
@@ -30,6 +73,7 @@ namespace Alura.Filmes.App
                 {
                     Console.WriteLine(ator.Ator);
                 }
+                Console.ReadLine();
             }
         }
 

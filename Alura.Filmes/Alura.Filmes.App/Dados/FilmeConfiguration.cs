@@ -49,6 +49,20 @@ namespace Alura.Filmes.App.Dados
                 .Property<DateTime>("last_update")// Nome da Coluna.
                 .HasColumnType("datetime")// Tipo do campo.
                 .HasDefaultValueSql("getdate()"); // Executa um Sql padrão
+
+            // Cria as chaves estrangeiras.
+            builder.Property<byte>("language_id");
+            builder.Property<byte?>("original_language_id ");//// "?" É chamado de "nullable types"
+
+            builder
+                .HasOne(f => f.IdiomaFalado)    // Um filme possui um idioma.
+                .WithMany(i => i.FilmesFalados) // Um mesmo idioma é falando em vários filmes.
+                .HasForeignKey("language_id");  // Chave estrangeira representada pela shadow property "language_id".
+
+            builder
+                .HasOne(f => f.IdiomaOriginal)          // Um filme possui um idioma.
+                .WithMany(i => i.FilmesOriginais)       // Um mesmo idioma é falando em vários filmes.
+                .HasForeignKey("original_language_id"); // Chave estrangeira representada pela shadow property "language_id".
         }
     }
 }

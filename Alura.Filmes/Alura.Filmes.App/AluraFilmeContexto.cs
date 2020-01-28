@@ -12,9 +12,12 @@ namespace Alura.Filmes.App
         public DbSet<Ator> Atores { get; set; }
         public DbSet<Filme> Filmes { get; set; }
         public DbSet<FilmeAtor> Elenco { get; set; }
+        public DbSet<Idioma> Idiomas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = @"Data Source=PROJETO\SQL2014;Initial Catalog=AluraFilme;User ID=sa;
+            string banco = "AluraFilme";
+            //string banco = "AluraFilmeTST";
+            string connectionString = $@"Data Source=PROJETO\SQL2014;Initial Catalog={banco};User ID=sa;
                                         Password=estadao;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;
                                         ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -26,14 +29,17 @@ namespace Alura.Filmes.App
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            // Importar as configurações da classe ator.
+            // Importar as configurações da classe Ator.
             modelBuilder.ApplyConfiguration(new AtorConfiguration());
 
-            // Importar as configurações da classe filme.
+            // Importar as configurações da classe Filme.
             modelBuilder.ApplyConfiguration(new FilmeConfiguration());
 
-            // Importar as configurações da classe filme.
+            // Importar as configurações da classe FilmeAtor.
             modelBuilder.ApplyConfiguration(new FilmeAtorConfiguration());
+
+            // Importar as configurações da classe Idiomas.
+            modelBuilder.ApplyConfiguration(new IdiomaConfiguration());
 
         }
     }
