@@ -41,9 +41,10 @@ namespace Alura.Filmes.App.Dados
             // A coluna que não existe na classe e existe no banco de dados são chamadas de
             // shadow properties e para configura-las segue os comandos abaixos.
 
-            //builder
-            //    .Property<string>("rating")
-            //    .HasColumnType("varchar(10)");
+            builder
+                .Property(f => f.Classificacao)
+                .HasColumnName("rating")
+                .HasColumnType("varchar(10)");
 
             builder
                 .Property<DateTime>("last_update")  // Nome da Coluna.

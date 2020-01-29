@@ -134,6 +134,14 @@
     <Compile Include="Migrations\20200129152433_Correcao.designer.cs">
       <DependentUpon>20200129152433_Correcao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20200129155313_FilmeClassificacao.cs" />
+    <Compile Include="Migrations\20200129155313_FilmeClassificacao.designer.cs">
+      <DependentUpon>20200129155313_FilmeClassificacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20200129155334_InserindoComandoSqlManual.cs" />
+    <Compile Include="Migrations\20200129155334_InserindoComandoSqlManual.designer.cs">
+      <DependentUpon>20200129155334_InserindoComandoSqlManual.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AluraFilmeContextoModelSnapshot.cs" />
     <Compile Include="Negocio\Ator.cs" />
     <Compile Include="Extensions\DbContextExtensions.cs" />
