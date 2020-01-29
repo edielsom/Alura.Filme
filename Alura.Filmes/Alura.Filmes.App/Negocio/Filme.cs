@@ -12,7 +12,8 @@ namespace Alura.Filmes.App.Negocio
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public string AnoLancamento { get; set; }
-        public Int16 Duracao { get; set; }
+        public short Duracao { get; set; }
+        public string Classificacao { get; set; }
 
         // A propriedade de um para muitos na classe principal sempre será uma 
         // coleção de classe com a classe de navegação.

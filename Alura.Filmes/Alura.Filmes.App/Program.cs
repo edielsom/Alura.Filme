@@ -10,14 +10,69 @@ namespace Alura.Filmes.App
     {
         static void Main(string[] args)
         {
-            // LerPropriedadeShadowProperty();
-            //ListarDezAtoresModificados();
-            //LendoFilmeCadastrado();
-            //ImprimidoDadosTabelasRelacionamento();
-            //RelacionamentoMuitosParaMuitos();
+            /* MÉTODOS DO CURSO PARTE I
+             
+                LerPropriedadeShadowProperty();
+                ListarDezAtoresModificados();
+                LendoFilmeCadastrado();
+                ImprimidoDadosTabelasRelacionamento();
+                RelacionamentoMuitosParaMuitos();
+                IdiomasFalados();
+                LendoIdiomaFilme();
+            */
 
-            // IdiomasFalados();
+            /* MÉTODOS DO CURSO PARTE II 
+                    CriandoChaveUnique();
+             */
+            using (var contexto = new AluraFilmeContexto())
+            {
 
+                contexto.LogSQLToConsole();
+
+                var idioma = new Idioma { Nome = "English" };
+
+                var filme= new Filme
+                {
+                    Titulo = "Senhor dos Anéis",
+                    Duracao = 120,
+                    AnoLancamento = "2000",
+                    Classificacao = "Qualquer",
+                    IdiomaFalado = idioma
+                };
+
+                contexto.Filmes.Add(filme);
+                contexto.SaveChanges();
+
+            }
+            Console.ReadLine();
+
+
+        }
+
+        private static void CriandoChaveUnique()
+        {
+            using (var contexto = new AluraFilmeContexto())
+            {
+
+                contexto.LogSQLToConsole();
+
+                var ator1 = new Ator { PrimeiroNome = "Emma", SegundoNome = "Watson" };
+                var ator2 = new Ator { PrimeiroNome = "Emma", SegundoNome = "Watson" };
+                contexto.Atores.AddRange(ator1, ator2);
+                contexto.SaveChanges();
+
+                var emmaWatson = contexto.Atores
+                    .Where(a => a.PrimeiroNome == "Emma" && a.SegundoNome == "Watson");
+
+                Console.WriteLine($"Total de atores encontrados: {emmaWatson.Count()}.");
+
+            }
+            Console.ReadLine();
+        }
+
+        #region EXERCÍCIOS DO CURSO DE ENTITY FRAMEWORK PARTE I 
+        private static void LendoIdiomaFilme()
+        {
             using (var contexto = new AluraFilmeContexto())
             {
                 contexto.LogSQLToConsole();
@@ -161,5 +216,7 @@ namespace Alura.Filmes.App
                 Console.ReadLine();
             }
         }
+        #endregion
+
     }
 }

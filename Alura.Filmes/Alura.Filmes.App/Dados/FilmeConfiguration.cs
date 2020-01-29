@@ -41,18 +41,18 @@ namespace Alura.Filmes.App.Dados
             // A coluna que não existe na classe e existe no banco de dados são chamadas de
             // shadow properties e para configura-las segue os comandos abaixos.
 
-            builder
-                .Property<string>("rating")
-                .HasColumnType("varchar(10)");
+            //builder
+            //    .Property<string>("rating")
+            //    .HasColumnType("varchar(10)");
 
             builder
-                .Property<DateTime>("last_update")// Nome da Coluna.
-                .HasColumnType("datetime")// Tipo do campo.
-                .HasDefaultValueSql("getdate()"); // Executa um Sql padrão
+                .Property<DateTime>("last_update")  // Nome da Coluna.
+                .HasColumnType("datetime")          // Tipo do campo.
+                .HasDefaultValueSql("getdate()");   // Executa um Sql padrão
 
             // Cria as chaves estrangeiras.
-            builder.Property<byte>("language_id");
-            builder.Property<byte?>("original_language_id ");//// "?" É chamado de "nullable types"
+            builder.Property<int>("language_id");
+            builder.Property<int?>("original_language_id");//// "?" É chamado de "nullable types"
 
             builder
                 .HasOne(f => f.IdiomaFalado)    // Um filme possui um idioma.

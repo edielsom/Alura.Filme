@@ -15,8 +15,8 @@ namespace Alura.Filmes.App
         public DbSet<Idioma> Idiomas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string banco = "AluraFilme";
-            //string banco = "AluraFilmeTST";
+            //string banco = "AluraFilme";
+            string banco = "AluraFilmeTST";
             string connectionString = $@"Data Source=PROJETO\SQL2014;Initial Catalog={banco};User ID=sa;
                                         Password=estadao;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;
                                         ApplicationIntent=ReadWrite;MultiSubnetFailover=False";

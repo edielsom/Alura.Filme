@@ -8,7 +8,7 @@ namespace Alura.Filmes.App.Negocio
     {
        
 
-        public byte Id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
 
         // A propriedade de um para muitos na classe principal sempre será uma 

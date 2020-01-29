@@ -16,7 +16,7 @@ namespace Alura.Filmes.App.Dados
 
             builder.Property(i => i.Nome)
                 .HasColumnName("name")
-                .HasColumnType("char(2)")
+                .HasColumnType("char(20)")
                 .IsRequired();
 
             builder.Property<DateTime>("last_update")
