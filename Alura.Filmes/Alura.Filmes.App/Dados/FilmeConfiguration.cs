@@ -42,9 +42,13 @@ namespace Alura.Filmes.App.Dados
             // shadow properties e para configura-las segue os comandos abaixos.
 
             builder
-                .Property(f => f.Classificacao)
+                .Property(f => f.TextoClassificacao)
                 .HasColumnName("rating")
                 .HasColumnType("varchar(10)");
+
+            // O Método Ignore serve para ignorar a prpriedade da classe que não será mapeada no entity framework.
+            builder
+                .Ignore(f => f.Classificacao);
 
             builder
                 .Property<DateTime>("last_update")  // Nome da Coluna.

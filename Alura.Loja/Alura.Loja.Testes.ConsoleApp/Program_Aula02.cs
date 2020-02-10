@@ -8,16 +8,16 @@ namespace Alura.Loja.Testes.ConsoleApp
 {
     class Program_Aula02
     {
-        static void Mains(string[] args)
-        {
-            //GravarUsandoAdoNet();
-            //GravarUsandoEntity();
-            //RecuperarProduto();
-            //ExcluirProduto();
-            //RecuperarProduto();
-            AtualizaProduto();
-            Console.ReadLine();
-        }
+        //static void Main(string[] args)
+        //{
+        //    //GravarUsandoAdoNet();
+        //    //GravarUsandoEntity();
+        //    //RecuperarProduto();
+        //    //ExcluirProduto();
+        //    //RecuperarProduto();
+        //    AtualizaProduto();
+        //    Console.ReadLine();
+        //}
 
         private static void AtualizaProduto()
         {
@@ -35,7 +35,7 @@ namespace Alura.Loja.Testes.ConsoleApp
             RecuperarProduto();
         }
 
-        private static void ExcluirProduto()
+        public static void ExcluirProduto()
         {
             // Acessa dos dados 
             using (var repo = new ProdutoDAOEntity())

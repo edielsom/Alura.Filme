@@ -51,6 +51,43 @@ namespace Alura.Filmes.App.Migrations
                     b.ToTable("actor");
                 });
 
+            modelBuilder.Entity("Alura.Filmes.App.Cliente", b =>
+                {
+                    b.Property<byte>("Id")
+                        .HasColumnName("customer_id");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnName("active");
+
+                    b.Property<string>("Email")
+                        .HasColumnName("email")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("PrimeiroNome")
+                        .IsRequired()
+                        .HasColumnName("first_name")
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("UltimoNome")
+                        .IsRequired()
+                        .HasColumnName("last_name")
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<DateTime>("create_date")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<DateTime>("last_update")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("customer");
+                });
+
             modelBuilder.Entity("Alura.Filmes.App.Negocio.Filme", b =>
                 {
                     b.Property<int>("Id")
@@ -61,10 +98,6 @@ namespace Alura.Filmes.App.Migrations
                         .HasColumnName("release_year")
                         .HasColumnType("varchar(4)");
 
-                    b.Property<string>("Classificacao")
-                        .HasColumnName("rating")
-                        .HasColumnType("varchar(10)");
-
                     b.Property<string>("Descricao")
                         .HasColumnName("description")
                         .HasColumnType("text");
@@ -72,6 +105,10 @@ namespace Alura.Filmes.App.Migrations
                     b.Property<short>("Duracao")
                         .HasColumnName("length")
                         .HasColumnType("smallint");
+
+                    b.Property<string>("TextoClassificacao")
+                        .HasColumnName("rating")
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -112,6 +149,47 @@ namespace Alura.Filmes.App.Migrations
                     b.HasIndex("actor_id");
 
                     b.ToTable("film_actor");
+                });
+
+            modelBuilder.Entity("Alura.Filmes.App.Negocio.Funcionario", b =>
+                {
+                    b.Property<byte>("Id")
+                        .HasColumnName("staff_id");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnName("active");
+
+                    b.Property<string>("Email")
+                        .HasColumnName("email")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnName("username")
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("PrimeiroNome")
+                        .IsRequired()
+                        .HasColumnName("first_name")
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Senha")
+                        .HasColumnName("password")
+                        .HasColumnType("varchar(40)");
+
+                    b.Property<string>("UltimoNome")
+                        .IsRequired()
+                        .HasColumnName("last_name")
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<DateTime>("last_update")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("staff");
                 });
 
             modelBuilder.Entity("Alura.Filmes.App.Negocio.Idioma", b =>

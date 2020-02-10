@@ -47,7 +47,7 @@ namespace Alura.Filmes.App.Extensions
             }
         }
 
-        internal class SqlServerLoggerProvider : ILoggerProvider
+         internal class SqlServerLoggerProvider : ILoggerProvider
         {
             private IList<string> categoriasASeremLogadas = new List<string>
             {

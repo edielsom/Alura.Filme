@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Alura.Loja.Testes.ConsoleApp
 {
-    class ProdutoDAOEntity : IDisposable, IProdutoDAO
+    public class ProdutoDAOEntity : IDisposable, IProdutoDAO
     {
-        private LojaContext contexto;
+        public LojaContext contexto;
 
+        public ProdutoDAOEntity()
+        {
+            this.contexto = new LojaContext();
+        }
         public void Adicionar(Produto p)
         {
             contexto.Produtos.Add(p);

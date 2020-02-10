@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alura.Filmes.App.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,15 @@ namespace Alura.Filmes.App.Negocio
         public string Descricao { get; set; }
         public string AnoLancamento { get; set; }
         public short Duracao { get; set; }
-        public string Classificacao { get; set; }
-
+        public ClassificacaoIndicativa Classificacao 
+        {
+            get
+            {
+                return TextoClassificacao.ParaValor();
+            }
+            set { TextoClassificacao = value.ParaString(); }
+        }
+        public string TextoClassificacao { get; private set; }
         // A propriedade de um para muitos na classe principal sempre será uma 
         // coleção de classe com a classe de navegação.
         public IList<FilmeAtor> Atores { get; set; }

@@ -1,13 +1,15 @@
 ﻿using Alura.Filmes.App.Extensions;
+using Alura.Filmes.App.Negocio;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using Alura.Filmes.App.Negocio;
+ 
 
 namespace Alura.Filmes.App
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             /* MÉTODOS DO CURSO PARTE I
@@ -23,7 +25,35 @@ namespace Alura.Filmes.App
 
             /* MÉTODOS DO CURSO PARTE II 
                     CriandoChaveUnique();
+                     TrabalhandoComEnumerador();
              */
+
+
+
+            using (var contexto = new AluraFilmeContexto())
+            {
+
+                contexto.LogSQLToConsole();
+
+                Console.WriteLine("Cliente.: ");
+                foreach (var cliente in contexto.Clientes)
+                {
+                    Console.WriteLine(cliente);
+                }
+
+                Console.WriteLine("Funcionário.: ");
+                foreach (var funcionario in contexto.Funcionarios)
+                {
+                    Console.WriteLine(funcionario);
+                }
+            }
+            Console.ReadLine();
+
+
+        }
+
+        public static void TrabalhandoComEnumerador()
+        {
             using (var contexto = new AluraFilmeContexto())
             {
 
@@ -34,20 +64,20 @@ namespace Alura.Filmes.App
                     Titulo = "Senhor dos Anéis",
                     Duracao = 120,
                     AnoLancamento = "2000",
-                    Classificacao = "Qualquer",
+                    Classificacao = ClassificacaoIndicativa.MaioresQue14,
                     IdiomaFalado = contexto.Idiomas.First()
                 };
 
                 contexto.Filmes.Add(filme);
                 contexto.SaveChanges();
 
+                var filmeInserido = contexto.Filmes.First(f => f.Titulo == "Senhor dos Anéis");
+                Console.WriteLine(filmeInserido.Classificacao);
             }
             Console.ReadLine();
-
-
         }
 
-        private static void CriandoChaveUnique()
+        public static void CriandoChaveUnique()
         {
             using (var contexto = new AluraFilmeContexto())
             {
@@ -69,7 +99,7 @@ namespace Alura.Filmes.App
         }
 
         #region EXERCÍCIOS DO CURSO DE ENTITY FRAMEWORK PARTE I 
-        private static void LendoIdiomaFilme()
+        public static void LendoIdiomaFilme()
         {
             using (var contexto = new AluraFilmeContexto())
             {
@@ -92,7 +122,7 @@ namespace Alura.Filmes.App
             }
         }
 
-        private static void IdiomasFalados()
+        public static void IdiomasFalados()
         {
             using (var contexto = new AluraFilmeContexto())
             {
@@ -108,7 +138,7 @@ namespace Alura.Filmes.App
             }
         }
 
-        private static void RelacionamentoMuitosParaMuitos()
+        public static void RelacionamentoMuitosParaMuitos()
         {
             using (var contexto = new AluraFilmeContexto())
             {
@@ -130,7 +160,7 @@ namespace Alura.Filmes.App
             }
         }
 
-        private static void ImprimidoDadosTabelasRelacionamento()
+        public static void ImprimidoDadosTabelasRelacionamento()
         {
             using (var contexto = new AluraFilmeContexto())
             {
@@ -151,7 +181,7 @@ namespace Alura.Filmes.App
             }
         }
 
-        private static void LendoFilmeCadastrado()
+        public static void LendoFilmeCadastrado()
         {
             using (var contexto = new AluraFilmeContexto())
             {
@@ -167,7 +197,7 @@ namespace Alura.Filmes.App
             }
         }
 
-        private static void ListarDezAtoresModificados()
+        public static void ListarDezAtoresModificados()
         {
             using (var contexto = new AluraFilmeContexto())
             {
@@ -190,7 +220,7 @@ namespace Alura.Filmes.App
             }
         }
 
-        private static void LerPropriedadeShadowProperty()
+        public static void LerPropriedadeShadowProperty()
         {
             // Select na tabela actor
 
@@ -198,9 +228,12 @@ namespace Alura.Filmes.App
             {
                 contexto.LogSQLToConsole();
 
-                var ator = new Ator();
-                ator.PrimeiroNome = "Tom";
-                ator.SegundoNome = "Hanks";
+                var ator = new Ator()
+                {
+                    PrimeiroNome = "Tom",
+                    SegundoNome = "Hanks"
+                };
+
 
 
                 // Informar uma coluna que existe no banco de dados mas não está declarada na classe
