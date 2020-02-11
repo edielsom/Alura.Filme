@@ -2,8 +2,9 @@
 using Alura.Filmes.App.Negocio;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Data.SqlClient;
 using System.Linq;
- 
+
 
 namespace Alura.Filmes.App
 {
@@ -24,12 +25,102 @@ namespace Alura.Filmes.App
             */
 
             /* MÉTODOS DO CURSO PARTE II 
-                    CriandoChaveUnique();
-                     TrabalhandoComEnumerador();
+                CriandoChaveUnique();
+                 TrabalhandoComEnumerador();
+                HerancaEntity();
+                UsandoSqlManualmente();
+                UsandoStoredProcedures();
+
              */
 
+            // Executar comandos de insert, delete e update.
+            ExecutarStoredProceduresInsertDeleteUpdate();
+
+        }
+        private static void ExecutarStoredProceduresInsertDeleteUpdate()
+        {
+            // Executar comandos de insert, delete e update.
+            using (var contexto = new AluraFilmeContexto())
+            {
+
+                var sql = "INSERT INTO language (name) VALUES ('Teste 1'), ('Teste 2'), ('Teste 3')";
+                var registros = contexto.Database.ExecuteSqlCommand(sql);
+                System.Console.WriteLine($"O total de registros afetados é {registros}.");
+
+                var deleteSql = "DELETE FROM language WHERE name LIKE 'Teste%'";
+                registros = contexto.Database.ExecuteSqlCommand(deleteSql);
+                System.Console.WriteLine($"O total de registros afetados é {registros}.");
+
+            }
+            Console.ReadKey();
+        }
+
+        private static void UsandoStoredProcedures()
+        {
+            using (var contexto = new AluraFilmeContexto())
+            {
+
+                contexto.LogSQLToConsole();
+
+                // Executando Stored Procedure
+
+                var categ = "Action"; //36
+
+                var paramCateg = new SqlParameter("category_name", categ);
+
+                var paramTotal = new SqlParameter
+                {
+                    ParameterName = "@total_actors",
+                    Size = 4,
+                    Direction = System.Data.ParameterDirection.Output
+                };
+
+                contexto.Database
+                    .ExecuteSqlCommand("total_actors_from_given_category @category_name, @total_actors OUT", paramCateg, paramTotal);
+
+                System.Console.WriteLine($"O total de atores na categoria {categ} é de {paramTotal.Value}.");
 
 
+            }
+            Console.ReadKey();
+        }
+
+        private static void UsandoSqlManualmente()
+        {
+            using (var contexto = new AluraFilmeContexto())
+            {
+
+                contexto.LogSQLToConsole();
+
+                // Consulta via Entity Framework
+                /* var atoresMaisAtuantes = contexto.Atores
+                                            .Include( a => a.Filmografia)
+                                            .OrderByDescending(a => a.Filmografia.Count())
+                                            .Take(5);
+                */
+
+
+                // Assumindo o controle sql
+                var sql = @"select a.* from actor a
+                            inner join top5_most_starred_actors filmes on filmes.actor_id = a.actor_id";
+
+                var atoresMaisAtuantes = contexto.Atores
+                                      .FromSql(sql);
+
+                Console.WriteLine("Atores.: ");
+                foreach (var ator in atoresMaisAtuantes)
+                {
+                    Console.WriteLine($"O ator {ator.PrimeiroNome} {ator.SegundoNome} atuou em {ator.Filmografia.Count} filmes");
+
+                }
+
+
+            }
+            Console.ReadKey();
+        }
+
+        private static void HerancaEntity()
+        {
             using (var contexto = new AluraFilmeContexto())
             {
 
@@ -48,8 +139,6 @@ namespace Alura.Filmes.App
                 }
             }
             Console.ReadLine();
-
-
         }
 
         public static void TrabalhandoComEnumerador()
